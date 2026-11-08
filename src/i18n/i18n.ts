@@ -5,6 +5,7 @@ import { getLanguage } from 'obsidian';
 import be from 'i18n/locales/be.json';
 import de from 'i18n/locales/de.json';
 import en from 'i18n/locales/en.json';
+import fa from 'i18n/locales/fa.json';
 import es from 'i18n/locales/es.json';
 import fr from 'i18n/locales/fr.json';
 import ko from 'i18n/locales/ko.json';
@@ -43,6 +44,7 @@ export const initializeI18n = async () => {
                 be: { translation: be }, // Belarusian
                 de: { translation: de }, // German
                 en: { translation: en }, // English
+       fa: { translation: fa }, // Persian
                 es: { translation: es }, // Spanish
                 fr: { translation: fr }, // French
                 ko: { translation: ko }, // Korean
