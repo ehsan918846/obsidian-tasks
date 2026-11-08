@@ -1,0 +1,40 @@
+name: Build Persian Tasks
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Install modules
+        run: yarn
+
+      - name: Build
+        run: yarn run build
+
+      - name: Publish release (for BRAT)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(node -p "require('./manifest.json').version")
+          gh release delete "$VERSION" --yes --cleanup-tag || true
+          gh release create "$VERSION" main.js manifest.json styles.css \
+            --title "$VERSION (Persian)" \
+            --notes "Tasks plugin with Persian translation" \
+            --latest
+
+      - name: Also keep files as artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: obsidian-tasks-fa
+          path: |
+            main.js
+            manifest.json
+            styles.css
